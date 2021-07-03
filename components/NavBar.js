@@ -3,8 +3,15 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import MobileMenu from './MobileMenu';
 import Dropdown from './Dropdown';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import firebase from '../firebase/firebaseClient'
+import { handleLogOut } from '../loginManager';
 
 const NavBar = () => {
+    const [user, loading, error] = useAuthState(firebase.auth());
+    console.log("Loading:", loading, "Current User", user);
+
+
     const router = useRouter();
 
     const isActive = (r) => r === router.pathname ? "bg-blue-300" : "";
@@ -60,9 +67,19 @@ const NavBar = () => {
                         </Link>
 
                         <div className="relative ml-6">
-                            <Link href="/login">
-                                <a className={isActive('/login') + " text-gray-300 bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Login </a>
-                            </Link>
+                            {
+                                user ?
+                                    <button
+                                    onClick={() => handleLogOut()}
+                                        className="text-gray-300 bg-red-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                    >
+                                        Logout
+                                    </button>
+                                    :
+                                    <Link href="/login">
+                                        <a className={isActive('/login') + " text-gray-300 bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Login </a>
+                                    </Link>
+                            }
                         </div>
                     </div>
                 </div>

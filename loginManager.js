@@ -1,23 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "./firebaseConfig";
 
-export const initializeLoginFramework = () => {
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    } else {
-        firebase.app();
-    }
-}
-
-
-export const createUserWithEmailandPassword = (name, email, password) => {
+export const createUserWithEmailandPassword = (email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const newUserInfo = userCredential.user;
             newUserInfo.error = '';
             newUserInfo.success = "Successfully Registered!";
-            updateUserName(name)
             return newUserInfo;
 
         })
@@ -43,7 +32,7 @@ export const handleGoogleSignIn = () => {
                 photoURL: photoURL,
                 success: 'Signed In Successfully'
             }
-            setUserToken();
+            // setUserToken();
             return signedInUser;
         })
         .catch(err => {
@@ -83,14 +72,8 @@ export const signInWithEmailAndPassword = (email, password) => {
 export const handleLogOut = () => {
     return firebase.auth().signOut()
         .then(res => {
-            const signedOutUser = {
-                isSignedIn: false,
-                name: '',
-                email: '',
-                photoURL: '',
-                success: 'Logged Out'
-            }
-            return signedOutUser;
+            const success = 'Logged Out'
+            return success;
         })
         .catch(err => {
             console.log(err);
@@ -102,9 +85,12 @@ const updateUserName = name => {
     const user = firebase.auth().currentUser;
     user.updateProfile({
         displayName: name
+        
     }).then(() => {
         console.log("Username updated");
     }).catch(error => {
         console.log(error);
     });
 };
+
+ 
