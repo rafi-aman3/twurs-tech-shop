@@ -4,10 +4,14 @@ import { useRouter } from 'next/router'
 import MobileMenu from './MobileMenu';
 import Dropdown from './Dropdown';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from '../firebase/firebaseClient'
 import { handleLogOut } from '../loginManager';
+import firebase from 'firebase/app';
+import "firebase/auth"
+import { initializeFirebase } from '../firebase/firebaseClient';
 
 const NavBar = () => {
+    initializeFirebase();
+    
     const [user, loading, error] = useAuthState(firebase.auth());
     console.log("Loading:", loading, "Current User", user);
 

@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
-
+import Hero from '../components/Hero'
+import Categories from '../components/Categories'
+import { initializeFirebase } from '../firebase/firebaseClient'
 
 
 export default function Home() {
-  
-
+  initializeFirebase();
   
   return (
     <div>
@@ -14,8 +15,10 @@ export default function Home() {
         <meta name="description" content="Tech shop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-     
-      <h1>Home</h1>
+      <Hero/>
+      <Categories/>
+      
+      
     </div>
   )
 }
