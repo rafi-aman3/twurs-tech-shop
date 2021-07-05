@@ -25,7 +25,7 @@ const Categories = () => {
                     <h5 className="text-base md:text-lg text-indigo-700 mb-1">Categories</h5>
                     <h1 className="text-4xl md:text-6xl text-gray-700 font-semibold">Twurs Tech Shop</h1>
                 </div>
-                <div className="flex flex-wrap m-4">
+                <div className="flex flex-wrap -m-4">
                     {
                         categories.map(category => <CategoryCard key={category.id} category={category.name} />)
                     }

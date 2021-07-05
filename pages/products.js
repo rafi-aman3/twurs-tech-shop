@@ -1,8 +1,9 @@
+import ProductContainer from "../components/ProductContainer";
+
 const products= () => {
     return (
-        <div>
-            <h1>Product</h1>
-        </div>
+        <ProductContainer/>
+        
     );
 };
 
