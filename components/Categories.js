@@ -3,10 +3,13 @@ import firebase from 'firebase/app';
 import "firebase/firestore"
 import { initializeFirebase } from '../firebase/firebaseClient';
 import CategoryCard from './CategoryCard';
-import { getCategories } from '../firestoreManager';
+import { getCategories, getProductsByCategory } from '../firestoreManager';
+import { useRouter } from 'next/router';
 
 
 const Categories = () => {
+    const Router = useRouter();
+
     const [categories, setCategories] = useState([])
     initializeFirebase();
 
@@ -14,6 +17,12 @@ const Categories = () => {
         getCategories().then(res => setCategories(res))
 
     }, [])
+
+
+    const clickHandler = (title) => {
+        Router.push('/products/'+ title);
+
+    }
 
 
 
@@ -27,7 +36,7 @@ const Categories = () => {
                 </div>
                 <div className="flex flex-wrap -m-4">
                     {
-                        categories.map(category => <CategoryCard key={category.id} category={category.name} />)
+                        categories.map(category => <CategoryCard key={category.id} clickHandler={clickHandler} category={category.name} />)
                     }
                 </div>
             </div>

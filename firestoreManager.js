@@ -19,5 +19,13 @@ export const getProducts = () => {
         const productDocuments = querySnapshot.docs.map(doc => doc.data())
         return productDocuments;
     })
+}
 
+export const getProductsByCategory = (category) => {
+    return firebase.firestore().collection("products").where("category", "==", category)
+    .get()
+    .then(querySnapshot => {
+        const productsByCategory = querySnapshot.docs.map(doc => doc.data())
+        return productsByCategory
+    })
 }
